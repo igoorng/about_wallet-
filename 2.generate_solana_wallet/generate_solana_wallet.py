@@ -1,11 +1,9 @@
-# 安装库：pip install pandas mnemonic solana bip-utils
-# linux 需要安装 apt install build-essential gcc
+# 安装库：pip install pandas mnemonic solana bip-utils openpyxl
 import datetime
 import pandas as pd
 from mnemonic import Mnemonic
-from solana.keypair import Keypair
+from solders.keypair import Keypair
 from solana.rpc.api import Client
-from solana.account import Account
 from bip_utils import Bip39SeedGenerator, Bip44, Bip44Coins, Bip44Changes
 
 # 生成钱包数量
@@ -22,16 +20,18 @@ for i in range(num):
     # 通过BIP44规范生成Solana私钥
     bip44_def_ctx = Bip44.FromSeed(seed, Bip44Coins.SOLANA)
     privkey = bip44_def_ctx.Purpose().Coin().Account(0).Change(Bip44Changes.CHAIN_EXT).AddressIndex(0).PrivateKey().Raw().ToHex()
-    kp = Keypair.from_secret_key(bytes.fromhex(privkey))
-    pubkey = str(kp.public_key)
+    # Create Keypair from private key bytes (seed)
+    kp = Keypair.from_seed(bytes.fromhex(privkey))
+    # Get public key using pubkey() method
+    pubkey = str(kp.pubkey())  # Updated to use pubkey()
     wallets.append({
-        "index": i+1,
+        "index": i + 1,
         "mnemonic": words,
-        "public_key": pubkey,
-        "private_key": privkey
+        "private_key": privkey,
+        "public_key": pubkey
     })
 
-# 保存到 txt 文件
+# 输出到 txt 文件
 with open(f"solana_wallets_{now_str}.txt", "w", encoding="utf-8") as f:
     for w in wallets:
         f.write(
@@ -43,7 +43,7 @@ with open(f"solana_wallets_{now_str}.txt", "w", encoding="utf-8") as f:
             f"==============================\n\n"
         )
 
-# 保存到 excel 文件
+# 输出到 excel 文件
 df = pd.DataFrame(wallets)
 df = df.rename(columns={
     "index": "序号",
