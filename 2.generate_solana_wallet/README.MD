@@ -26,7 +26,7 @@ apt install build-essential gcc
 ```
 ## 脚本安装python所需要的库
 ```
-pip install pandas mnemonic solana bip-utils openpyxl
+pip install pandas mnemonic  bip-utils 
 ```
 ## 执行脚本
 ```
