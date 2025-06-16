@@ -1,4 +1,5 @@
 # 安装库：pip install pandas mnemonic solana bip-utils
+# linux 需要安装 apt install build-essential gcc
 import datetime
 import pandas as pd
 from mnemonic import Mnemonic
