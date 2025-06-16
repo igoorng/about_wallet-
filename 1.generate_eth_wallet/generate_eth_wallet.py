@@ -10,7 +10,7 @@ import datetime
 now_str = datetime.datetime.now().strftime("%Y%m%d")
 
 # 设置 需要生成的钱包数量
-num = 
+num = int(input("请输入要生成的钱包数量："))
 if len(sys.argv) > 1:
     try:
         num = int(sys.argv[1])
@@ -51,4 +51,4 @@ for i in range(num):
 # 保存Excel文件
 excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"eth_wallets_{now_str}.xlsx")
 wb.save(excel_path)
-print(f"所有钱包信息已保存到: {excel_path}")
+print(f"所有钱包信息已保存到: eth_private_keys_{now_str}.txt 和 {excel_path}")
