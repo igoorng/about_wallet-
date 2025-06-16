@@ -27,9 +27,9 @@ apt install build-essential gcc
 ```
 ## 脚本安装python所需要的库
 ```
-pip install pandas mnemonic solana bip-utils openpyxl
+pip install eth-account mnemonic openpyxl
 ```
 ## 执行脚本
 ```
-python generate_solana_wallet.py
+python generate_eth_wallet.py
 ```
